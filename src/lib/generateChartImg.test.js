@@ -1,1 +1,1 @@
-// Unit Tests for GenerateChartImg.js functionality
+// Unit Tests for GenerateChartImg.js
