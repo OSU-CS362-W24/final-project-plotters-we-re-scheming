@@ -3,25 +3,19 @@
 /**
 * @jest-environment jsdom
 */
-require("whatwg-fetch")
-
-const fs = require("fs")
-
-const domTesting = require("@testing-library/dom")
-require("@testing-library/jest-dom")
-
-const userEvent = 
-require("@testing-library/user-event").default
+//might need stub for integration tests 
 
 
+const generateChartImg = require("./generateChartImg")
 
-function initDomFromFiles(htmlPath, jsPath){
-    const html = fs.readFileSync(htmlPath, 'utf8')
-    document.open()
-    document.write(html)
-    document.close()
-    jest.isolateModules(function(){
-        require(jsPath)
-    })
-}
+test('Calls generateChartImg Function and checks whether the response format is correct', async function(){
+    const type = "line"
+    const data = "[{ x: 1 y: 1 },{ x: 2 y: 2 },{ x: 3 y: 3 }]"
+    const xLabel = "X-axis"
+    const yLabel = "Y-axis"
+    const title = "Chart-Test"
+    const color = "#000000"
+    const imgUrl = await generateChartImg(type, data, xLabel, yLabel, title, color)
+    expect(imgUrl).toMatch(/^blob:/);
+  });
 
