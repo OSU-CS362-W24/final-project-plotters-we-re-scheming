@@ -51,3 +51,26 @@ test('saveChart saves a chart', function () {
 test('loadAllSavedCharts loads a chart', function () {
     expect(loadAllSavedCharts()).toStrictEqual([chartOne])
 })
+
+// localStorage should be able to hold several of our charts, since that's where we locate them later
+// saving new charts should create distinct spots in localStorage for each object we save
+test('saveChart saves several charts to localStorage, pushing to end when not given index', function () {
+    saveChart(chartTwo)
+    saveChart(chartThree)
+    expect(JSON.parse(window.localStorage.getItem("savedCharts"))).toStrictEqual([chartOne, chartTwo, chartThree])
+})
+
+// should return an array of objects from localStorage
+test('loadAllSavedCharts loads several charts', function () {
+    expect(loadAllSavedCharts()).toStrictEqual([chartOne, chartTwo, chartThree])
+})
+
+// given proper index, return desired chart
+test('loadSavedChart loads a specific chart at a given index', function () {
+    expect(loadSavedChart(1)).toStrictEqual(chartTwo)
+})
+
+// given improper index, return empty
+test('loadSavedChart returns an empty object if called on an empty index', function () {
+    expect(loadSavedChart(3)).toStrictEqual({})
+})
