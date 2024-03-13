@@ -38,3 +38,11 @@ const chartThree = {
 test('loadAllSavedCharts returns an empty array when no charts have been saved', function () {
     expect(loadAllSavedCharts()).toStrictEqual([])
 })
+
+// basic save, cannot load anything until we save something
+test('saveChart saves a chart', function () {
+    saveChart(chartOne)
+
+    //since we haven't yet tested the "load" function, verify by checking the storage directly
+    expect(JSON.parse(window.localStorage.getItem("savedCharts"))).toStrictEqual([chartOne])
+})
