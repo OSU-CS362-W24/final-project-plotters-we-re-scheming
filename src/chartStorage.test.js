@@ -46,3 +46,8 @@ test('saveChart saves a chart', function () {
     //since we haven't yet tested the "load" function, verify by checking the storage directly
     expect(JSON.parse(window.localStorage.getItem("savedCharts"))).toStrictEqual([chartOne])
 })
+
+// returned array should have just one object, since we've only saved one object
+test('loadAllSavedCharts loads a chart', function () {
+    expect(loadAllSavedCharts()).toStrictEqual([chartOne])
+})
