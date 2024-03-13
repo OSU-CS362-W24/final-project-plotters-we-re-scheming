@@ -172,3 +172,80 @@ test('clicking button does not change values in any input fields', async functio
     expect(xInput[2]).toHaveValue(8)
     expect(yInput[2]).toHaveValue(9)
 })
+
+// full integration test, check new fields are empty, old fields are preserved, several clicks
+test('clicking button preserves all data and adds empty value pairs, even if clicked multiple times', async function () {
+    
+    // checking before and after
+    var chartTitle = domTesting.getByLabelText(document, "Chart title")
+
+    var xLabel = domTesting.getByLabelText(document, "X label")
+    var yLabel = domTesting.getByLabelText(document, "Y label")
+    
+    var xInput = domTesting.getAllByLabelText(document, "X")
+    var yInput = domTesting.getAllByLabelText(document, "Y")
+
+    const user = userEvent.setup()
+
+    // values should still be inserted from previous test
+    expect(chartTitle).toHaveValue("1")
+    expect(xLabel).toHaveValue("2")
+    expect(yLabel).toHaveValue("3")
+
+    // xy inputs update on change, values are immediately treated as numbers, not string
+    expect(xInput[0]).toHaveValue(4)
+    expect(yInput[0]).toHaveValue(5)
+    expect(xInput[1]).toHaveValue(6)
+    expect(yInput[1]).toHaveValue(7)
+    expect(xInput[2]).toHaveValue(8)
+    expect(yInput[2]).toHaveValue(9)
+    expect(xInput[3]).not.toHaveValue()
+    expect(yInput[3]).not.toHaveValue()
+    
+    const addInput = domTesting.getByTestId(document, 'add-values-1')
+
+    await user.click(addInput)
+    await user.click(addInput)
+    await user.click(addInput)
+    await user.click(addInput)
+    await user.click(addInput)
+    await user.click(addInput)
+    
+    // update values
+    chartTitle = domTesting.getByLabelText(document, "Chart title")
+
+    xLabel = domTesting.getByLabelText(document, "X label")
+    yLabel = domTesting.getByLabelText(document, "Y label")
+    
+    xInput = domTesting.getAllByLabelText(document, "X")
+    yInput = domTesting.getAllByLabelText(document, "Y")
+
+    // verify old values and check new values
+    expect(chartTitle).toHaveValue("1")
+    expect(xLabel).toHaveValue("2")
+    expect(yLabel).toHaveValue("3")
+    expect(xInput[0]).toHaveValue(4)
+    expect(yInput[0]).toHaveValue(5)
+    expect(xInput[1]).toHaveValue(6)
+    expect(yInput[1]).toHaveValue(7)
+    expect(xInput[2]).toHaveValue(8)
+    expect(yInput[2]).toHaveValue(9)
+    expect(xInput[3]).not.toHaveValue()
+    expect(yInput[3]).not.toHaveValue()
+    expect(xInput[4]).not.toHaveValue()
+    expect(yInput[4]).not.toHaveValue()
+    expect(xInput[5]).not.toHaveValue()
+    expect(yInput[5]).not.toHaveValue()
+    expect(xInput[6]).not.toHaveValue()
+    expect(yInput[6]).not.toHaveValue()
+    expect(xInput[7]).not.toHaveValue()
+    expect(yInput[7]).not.toHaveValue()
+    expect(xInput[8]).not.toHaveValue()
+    expect(yInput[8]).not.toHaveValue()
+    expect(xInput[9]).not.toHaveValue()
+    expect(yInput[9]).not.toHaveValue()
+
+    // expect 10 value pairs after 9 total button clicks
+    expect(xInput).toHaveLength(10)
+    expect(yInput).toHaveLength(10)
+})
