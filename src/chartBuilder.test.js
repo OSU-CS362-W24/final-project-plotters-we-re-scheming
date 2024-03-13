@@ -23,3 +23,21 @@ function initDomFromFiles(htmlPath, jsPath) {
 		require(jsPath)
 	})
 }
+
+// count initial fields
+test("verify there is only one field for each value to start", async function () {
+
+    // initialize the html and js necessary
+    initDomFromFiles(
+        __dirname + "/line/line.html",
+        __dirname + "/line/line.js"
+    )
+    
+    // grab the value input fields
+    const xInput = domTesting.getAllByLabelText(document, "X")
+    const yInput = domTesting.getAllByLabelText(document, "Y")
+
+    // should only be one of each item to begin
+    expect(xInput).toHaveLength(1)
+    expect(yInput).toHaveLength(1)
+})
