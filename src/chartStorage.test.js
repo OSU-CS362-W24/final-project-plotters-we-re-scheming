@@ -33,3 +33,8 @@ const chartThree = {
     title: "plotThree",
     color: "green"
 }
+
+// boundary test, ensure loading before saving returns nothing
+test('loadAllSavedCharts returns an empty array when no charts have been saved', function () {
+    expect(loadAllSavedCharts()).toStrictEqual([])
+})
