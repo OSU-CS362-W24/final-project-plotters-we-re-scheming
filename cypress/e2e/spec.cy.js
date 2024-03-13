@@ -49,7 +49,7 @@ it('Preserves data between pages', () => {
   cy.findAllByLabelText("X").last().type("9")
   cy.findAllByLabelText("Y").last().type("48")
   cy.findByRole("link", { name: "Scatter" }).click()
- cy.testTemplateValues()
+  cy.testTemplateValues()
   cy.findByRole("link", { name: "Bar" }).click()
   cy.testTemplateValues()
   cy.findByRole("link", { name: "Line" }).click()
