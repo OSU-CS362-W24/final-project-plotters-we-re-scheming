@@ -107,3 +107,25 @@ test('loadSavedChart returns an empty object if chart does not exist at that ind
 test('loadCurrentChartData returns empty set if no updateCurrentChartData has not yet been called', function () {
     expect(loadCurrentChartData()).toStrictEqual({})
 })
+
+// saving to a different spot in localStorage
+test('updateCurrentChartData correctly updates current chart', function () {
+    updateCurrentChartData(chartOne)
+    expect(JSON.parse(window.localStorage.getItem("currentChartData"))).toStrictEqual(chartOne)
+})
+
+// have no saved "current" data, should return object
+test('loadCurrentChartData loads the current chart data', function () {
+    expect(loadCurrentChartData()).toStrictEqual(chartOne)
+})
+
+// only one object can be saved to currentChartData at once
+test('updateCurrentChartData updates with a new chart', function () {
+    updateCurrentChartData(chartThree)
+    expect(JSON.parse(window.localStorage.getItem("currentChartData"))).toStrictEqual(chartThree)
+})
+
+// should only return the most recent object
+test('loadCurrentChartData loads new current chart data', function () {
+    expect(loadCurrentChartData()).toStrictEqual(chartThree)
+})
