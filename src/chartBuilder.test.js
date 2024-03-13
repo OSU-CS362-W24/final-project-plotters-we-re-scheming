@@ -41,3 +41,22 @@ test("verify there is only one field for each value to start", async function ()
     expect(xInput).toHaveLength(1)
     expect(yInput).toHaveLength(1)
 })
+
+// add a new field
+test('clicking button to add values creates second pair of values', async function () {
+
+    const user = userEvent.setup()
+    
+    // multiple buttons on the page, so add a test id to grab the correct button
+    const addInput = domTesting.getByTestId(document, 'add-values-1')
+
+    // click the button to add a new value pair
+    await user.click(addInput)
+    
+    const xInput = domTesting.getAllByLabelText(document, "X")
+    const yInput = domTesting.getAllByLabelText(document, "Y")
+    
+    // expect the original pair and the newly added pair
+    expect(xInput).toHaveLength(2)
+    expect(yInput).toHaveLength(2)
+})
