@@ -97,3 +97,13 @@ test('saveChart replaces charts at specific indices', function () {
     saveChart(chartThree, 3)
     expect(loadAllSavedCharts()).toStrictEqual([chartOne, chartTwo, chartThree, chartThree, chartTwo, chartOne])
 })
+
+// length is 6, maximum index would be 5
+test('loadSavedChart returns an empty object if chart does not exist at that index', function () {
+    expect(loadSavedChart(10)).toStrictEqual({})
+})
+
+// have yet to save "current" data
+test('loadCurrentChartData returns empty set if no updateCurrentChartData has not yet been called', function () {
+    expect(loadCurrentChartData()).toStrictEqual({})
+})
