@@ -74,3 +74,26 @@ test('loadSavedChart loads a specific chart at a given index', function () {
 test('loadSavedChart returns an empty object if called on an empty index', function () {
     expect(loadSavedChart(3)).toStrictEqual({})
 })
+
+// modifying one chart, and testing to see saving it at a certain location overwrites what was there
+test('saveChart overwrites a chart at a given index', function () {
+    chartOne.color = "yellow"
+    expect(loadSavedChart(0).color).toBe("red")
+    saveChart(chartOne, 0)
+    expect(loadSavedChart(0).color).toBe("yellow")
+})
+
+// current length of list is 3
+test('saveChart pushes chart to end when given index greater than length of list', function () {
+    saveChart(chartOne, 5)
+    expect(loadAllSavedCharts()).toStrictEqual([chartOne, chartTwo, chartThree, chartOne])
+})
+
+// extending list and overwriting with entirely new objects
+test('saveChart replaces charts at specific indices', function () {
+    saveChart(chartOne)
+    saveChart(chartOne)
+    saveChart(chartTwo, 4)
+    saveChart(chartThree, 3)
+    expect(loadAllSavedCharts()).toStrictEqual([chartOne, chartTwo, chartThree, chartThree, chartTwo, chartOne])
+})
