@@ -1,5 +1,5 @@
 import "@testing-library/cypress/add-commands";
-
+require("whatwg-fetch")
 describe('template spec', () => {
     it('Generates a chart', () => {
     cy.visit('http://localhost:8080/')
@@ -81,5 +81,32 @@ it("Saves chart in gallery after creation", ()=>{
     cy.contains("Save chart").click()
     cy.contains("Gallery").click()
     cy.contains("Interstellar Predation: The Impact of Wookie Immigration on Porg Population Dynamics").should("exist")
+})
 
+it("Re-Opens saved chart from gallery", ()=>{
+  cy.visit('http://localhost:8080/')
+  cy.contains("Line").click()
+    cy.findByRole('img').should('not.exist')
+    cy.findByLabelText("Chart title").type("Interstellar Predation: The Impact of Wookie Immigration on Porg Population Dynamics")
+    cy.findByLabelText("X label").type("Wookies")
+    cy.findByLabelText("Y label").type("Porgs")
+    cy.findByLabelText("X").type("0")
+    cy.findByLabelText("Y").type("500")
+    cy.contains("+").click()
+    cy.findAllByLabelText("X").last().type("2")
+    cy.findAllByLabelText("Y").last().type("413")
+    cy.contains("+").click()
+    cy.findAllByLabelText("X").last().type("3")
+    cy.findAllByLabelText("Y").last().type("274")
+    cy.contains("+").click()
+    cy.findAllByLabelText("X").last().type("6")
+    cy.findAllByLabelText("Y").last().type("196")
+    cy.contains("+").click()
+    cy.findAllByLabelText("X").last().type("9")
+    cy.findAllByLabelText("Y").last().type("48")
+    cy.contains("Generate chart").click()
+    cy.contains("Save chart").click()
+    cy.contains("Gallery").click()
+    cy.contains("Interstellar Predation: The Impact of Wookie Immigration on Porg Population Dynamics").click()
+    cy.findByRole('img').should('exist')
 })
