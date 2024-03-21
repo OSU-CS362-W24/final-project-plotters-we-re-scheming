@@ -8,10 +8,11 @@
     "test": "npm run test:integration",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test:e2e": "npm run cy:run",
+    "test:e2e": "start-test start http://localhost:8080 cy:run",
     "test:integration": "jest"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^10.0.1",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/user-event": "^14.5.2",
@@ -23,11 +24,16 @@
     "style-loader": "^3.3.3",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1",
-    "webpack-dev-server": "^4.15.0"
+    "webpack-dev-server": "^4.15.0",
+    "whatwg": "^2.0.0",
+    "whatwg-fetch": "^3.6.20"
   },
   "jest": {
     "moduleNameMapper": {
       "\\.css$": "<rootDir>/src/__mocks__/styleMock.js"
     }
+  },
+  "dependencies": {
+    "start-server-and-test": "^2.0.3"
   }
 }
