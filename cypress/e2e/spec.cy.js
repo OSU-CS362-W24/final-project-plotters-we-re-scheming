@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import "@testing-library/cypress/add-commands";
 require("whatwg-fetch")
 describe('template spec', () => {
@@ -110,10 +109,4 @@ it("Re-Opens saved chart from gallery", ()=>{
     cy.contains("Gallery").click()
     cy.contains("Interstellar Predation: The Impact of Wookie Immigration on Porg Population Dynamics").click()
     cy.findByRole('img').should('exist')
-=======
-describe('template spec', () => {
-  it('passes', () => {
-    cy.visit('https://example.cypress.io')
-  })
->>>>>>> 6b8b4df02965ea4aebadee4c8426011921e639ac
 })
