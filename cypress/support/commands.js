@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('testTemplateValues', function() {
+    cy.findByLabelText("X label").should("have.value", "Wookies")
+  cy.findByLabelText("Y label").should("have.value", "Porgs")
+  cy.findAllByLabelText("X").eq(0).should("have.value", "0")
+  cy.findAllByLabelText("Y").eq(0).should("have.value", "500")
+  cy.findAllByLabelText("X").eq(1).should("have.value", "2")
+  cy.findAllByLabelText("Y").eq(1).should("have.value", "413")
+  cy.findAllByLabelText("X").eq(2).should("have.value", "3")
+  cy.findAllByLabelText("Y").eq(2).should("have.value", "274")
+  cy.findAllByLabelText("X").eq(3).should("have.value", "6")
+  cy.findAllByLabelText("Y").eq(3).should("have.value", "196")
+  cy.findAllByLabelText("X").eq(4).should("have.value", "9")
+  cy.findAllByLabelText("Y").eq(4).should("have.value", "48")
+  })
